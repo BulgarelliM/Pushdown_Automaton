@@ -5,8 +5,11 @@ import sys
 import os
 
 def arg_parser():
-    parser = argparse.ArgumentParser(description='Testa se uma palavra pertence pertence a uma linguagem')
-    parser.add_argument('arquivo', help='Inserir o caminho do arquivo .json a ser testado')
+    parser = argparse.ArgumentParser(usage = 'python3 apd.py [APD]', description=' -- Descrição: Testa se uma palavra pertence pertence a uma linguagem')
+    args = sys.argv[1:]
+    if len(args) == 0:
+        parser.error("É necessário passar o arquivo .json como argumento. :)")
+    parser.add_argument( 'APD', help='É necessário passar o arquivo .json como argumento. :)')
     return parser
 
 
@@ -15,7 +18,7 @@ def open_json(arquivo):
         with open(arquivo, "r") as json_file:
             dados = json.load(json_file)
     except Exception:
-        print("File {} does not exist".format(arquivo))
+        print("Arquivo {} não existe".format(arquivo))
     return dados
 
 
@@ -64,10 +67,9 @@ def main(dados):
         pilha = Pilha()
 
         
-        #Para cada palavra fornecida, sera verificado o estado atual, o simbolo lido,
-        #o que sera desempilhado e/ou empilhado e o próximo estado.
-
-        #simboloConsumido: boolean que passa para True quando o simbolo e lido adequadamente
+        # Para cada palavra fornecida, sera verificado o estado atual, o simbolo lido,
+        # o que sera desempilhado e/ou empilhado e o próximo estado.
+        # simboloConsumido: boolean que passa para True quando o simbolo e lido adequadamente
         
         i = 0
 
